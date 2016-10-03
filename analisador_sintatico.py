@@ -42,30 +42,31 @@ def parse():
     q = 0
     stateStack.append(q)
     a = lexic.nextToken()
-    # print(enums[a]) #Debug
     firstPass = True
     while firstPass or (q != ACCEPT):
+        print(enums[a]) #Debug
         firstPass = False
         if a in actionTable[q]:
             p = actionTable[q][a]
             if IS_SHIFT(p):
                 stateStack.append(p)
                 a = lexic.nextToken()
-                # print("NextToken:", enums[a]) #Debug
+                print("NextToken:", enums[a]) #Debug
             elif IS_REDUCTION(p):
                 r = RULE(p)
-                # print("Regra:", r) #Debug
+                print("Regra:", r) #Debug
                 for i in range(ruleLen[r]):
                     stateStack.pop()
                 stateStack.append(actionTable[stateStack[-1]][ruleLeft[r]])
                 scope.analyze(r, lexic.getSecondaryToken(), lexic.line)
             else:
-                # print("Estado:", stateStack[-1]) #Debug
+                print("Estado:", stateStack[-1]) #Debug
                 syntaxError()
                 break
-            # print("Estado:", stateStack[-1]) #Debug
+            print("Estado:", stateStack[-1]) #Debug
             q = stateStack[-1]
         else:
             syntaxError()
             break
+        print()
 
