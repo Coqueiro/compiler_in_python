@@ -1,0 +1,265 @@
+%lex
+%%
+
+\s+                   /* skip whitespace */
+\n+					  /* skip newline*/
+
+/*SIMBOLOS*/
+":"					  return 'COLON'
+";"					  return 'SEMI_COLON'
+","					  return 'COMMA'
+"["					  return 'LEFT_SQUARE'
+"]"					  return 'RIGHT_SQUARE'
+"{"					  return 'LEFT_BRACES'
+"}"					  return 'RIGHT_BRACES'
+"("                   return 'LEFT_PARENTHESIS'
+")"                   return 'RIGHT_PARENTHESIS'
+"&&"			      return 'AND'
+"||"				  return 'OR'
+"=="				  return 'EQUAL_EQUAL'
+"="					  return 'EQUALS'
+"<="				  return 'LESS_OR_EQUAL'
+"<"					  return 'LESS_THAN'
+">="				  return 'GREATER_OR_EQUAL'
+">"					  return 'GREATER_THAN'
+"!="				  return 'NOT_EQUAL'
+"!"					  return 'NOT'
+"*"                   return 'TIMES'
+"/"                   return 'DIVIDE'
+"++"                  return 'PLUS_PLUS'
+"+"                   return 'PLUS'
+"--"				  return 'MINUS_MINUS'
+"-"                   return 'MINUS'
+"."					  return 'DOT'
+<<EOF>>        		  return 'ENDFILE'
+
+/*Palavras Reservadas*/
+"array"				  return 'ARRAY'
+"boolean"			  return 'BOOLEAN'
+"break"				  return 'BREAK'
+"char"				  return 'CHAR'
+"continue"			  return 'CONTINUE'
+"do"				  return 'DO'
+"else"				  return 'ELSE'
+"false"				  return 'FALSE'
+"function"			  return 'FUNCTION'
+"if"				  return 'IF'
+"integer"			  return 'INTEGER'
+"of"				  return 'OF'
+"return"			  return 'RETURN'
+"string"		      	  return 'STRING'
+"struct"			  return 'STRUCT'
+"true"				  return 'TRUE'
+"type"				  return 'TYPE'
+"var"				  return 'VAR'
+"while"				  return 'WHILE'
+
+/*TOKENS REGULARES*/
+
+[a-zA-Z][a-zA-Z_0-9]* return 'IDT'
+[0-9]+("."[0-9]+)?\b  return 'NUMERAL'
+['].[']				  return 'CHARACTER'
+\"(\\\"|[^"])*\"	  return 'STRINGVAL'
+
+/lex
+
+/*Prioridade dos Operadores*/
+
+%nonassoc NO-ELSE
+%nonassoc ELSE
+%nonassoc EQUALS
+%nonassoc AND,OR
+%%
+
+P 
+	: LDE ENDFILE
+	;
+
+LDE
+	: LDE DE
+	| DE
+	;
+
+DE 
+	: DF 
+	| DT
+	| DV 
+	;
+
+DF 
+	: FUNCTION IDD NF LEFT_PARENTHESIS LP RIGHT_PARENTHESIS COLON T MF B
+	;
+
+DT 
+	
+	: TYPE IDD EQUALS STRUCT NB LEFT_BRACES DC RIGHT_BRACES SEMI_COLON
+	| TYPE IDD EQUALS ARRAY LEFT_SQUARE NUM RIGHT_SQUARE OF T SEMI_COLON
+	| TYPE IDD EQUALS T SEMI_COLON
+	;
+
+DC 
+	: DC SEMI_COLON LI COLON T
+	| LI COLON T
+	;
+
+
+LI 
+	: LI COMMA IDD
+	| IDD
+	; 
+
+DV 
+	: VAR LI COLON T SEMI_COLON
+	;
+
+LP 
+	: LP COMMA IDD COLON T
+	| IDD COLON T
+	|
+	;
+
+B
+	: LEFT_BRACES LDV LS RIGHT_BRACES
+	| LEFT_BRACES LDV RIGHT_BRACES
+	| LEFT_BRACES LS RIGHT_BRACES
+	| LEFT_BRACES RIGHT_BRACES
+	;
+
+LDV
+	: LDV DV
+	| DV
+	;
+
+LS 
+	: LS S
+	| S
+	;
+
+S
+	: E SEMI_COLON
+	| NB B
+	| WHILE MW LEFT_PARENTHESIS E RIGHT_PARENTHESIS MT S
+	| DO MW S WHILE LEFT_PARENTHESIS E RIGHT_PARENTHESIS SEMI_COLON
+	| IF LEFT_PARENTHESIS E RIGHT_PARENTHESIS MT S %prec NO-ELSE
+	| IF LEFT_PARENTHESIS E RIGHT_PARENTHESIS MT S ELSE ME S 
+	| BREAK SEMI_COLON
+	| CONTINUE SEMI_COLON
+	| RETURN E SEMI_COLON
+	;
+
+E 
+	: E AND L
+	| E OR L
+	| L
+	| LV MA EQUALS E
+	;
+
+L
+	: L LESS_THAN R 
+	| L GREATER_THAN R 
+	| L LESS_OR_EQUAL R 
+	| L GREATER_OR_EQUAL R 
+	| L EQUAL_EQUAL R 
+	| L NOT_EQUAL R
+	| R
+	;
+
+R 
+	: R PLUS K
+	| R MINUS K
+	| K
+	;
+
+
+K
+	: K TIMES F
+	| K DIVIDE F 
+	| F
+	;
+
+F 
+	: LV
+	| PLUS_PLUS LV
+	| MINUS_MINUS LV
+	| LV PLUS_PLUS
+	| LV MINUS_MINUS
+	| LEFT_PARENTHESIS E RIGHT_PARENTHESIS
+	| IDU MC LEFT_PARENTHESIS LE RIGHT_PARENTHESIS
+	| MINUS F
+	| NOT F
+	| TRU
+	| FALS
+	| CHR
+	| STR
+	| NUM
+	;
+
+LE
+	: LE COMMA E
+	| E
+	|
+	;
+
+LV 
+	: LV DOT ID
+	| LV LEFT_SQUARE E RIGHT_SQUARE
+	| IDU
+	;
+
+T
+	: INTEGER
+	| CHAR 
+	| BOOLEAN
+	| STRING
+	| IDU
+	;
+
+TRU : TRUE;
+FALS : FALSE;
+CHR : CHARACTER;
+STR : STRINGVAL;
+NUM : NUMERAL;
+
+IDD
+	: IDT
+	;
+
+IDU
+	: IDT
+	;
+
+ID 
+	: IDT
+	;
+
+NB
+	:
+	;
+
+MF 
+	:
+	;
+
+MC
+	:
+	;
+
+NF
+	:
+	;
+
+MT
+	:
+	;
+
+ME
+	:
+	;
+
+MW
+	:
+	;
+
+MA
+	:
+	;

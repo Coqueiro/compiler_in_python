@@ -1,0 +1,789 @@
+TYPE
+ID
+Pilha:7
+EQUALS
+Pilha:13
+Regra: 71
+Pilha:12
+STRING
+Pilha:15
+TYPE
+Pilha:23
+Regra: 12
+Pilha:19
+Regra: 8
+Pilha:5
+Regra: 5
+Pilha:3
+Regra: 3
+Pilha:2
+ID
+Pilha:7
+EQUALS
+Pilha:13
+Regra: 71
+Pilha:12
+STRUCT
+Pilha:15
+LEFT_BRACES
+Pilha:18
+Regra: 73
+Pilha:30
+ID
+Pilha:35
+COMMA
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:47
+ID
+Pilha:62
+COMMA
+Pilha:49
+Regra: 71
+Pilha:75
+Regra: 25
+Pilha:47
+ID
+Pilha:62
+COLON
+Pilha:49
+Regra: 71
+Pilha:75
+Regra: 25
+Pilha:47
+INTEGER
+Pilha:61
+SEMI_COLON
+Pilha:69
+Regra: 9
+Pilha:68
+Regra: 15
+Pilha:46
+ID
+Pilha:60
+COMMA
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:67
+ID
+Pilha:62
+COLON
+Pilha:49
+Regra: 71
+Pilha:75
+Regra: 25
+Pilha:67
+STRING
+Pilha:79
+RIGHT_BRACES
+Pilha:72
+Regra: 12
+Pilha:105
+Regra: 14
+Pilha:46
+FUNCTION
+Pilha:59
+Regra: 7
+Pilha:5
+Regra: 5
+Pilha:9
+Regra: 2
+Pilha:2
+ID
+Pilha:6
+LEFT_PARENTHESIS
+Pilha:11
+Regra: 71
+Pilha:10
+Regra: 73
+Pilha:14
+ID
+Pilha:16
+COLON
+Pilha:28
+Regra: 71
+Pilha:27
+STRING
+Pilha:33
+RIGHT_PARENTHESIS
+Pilha:42
+Regra: 12
+Pilha:38
+Regra: 18
+Pilha:26
+COLON
+Pilha:31
+INTEGER
+Pilha:36
+LEFT_BRACES
+Pilha:51
+Regra: 9
+Pilha:50
+VAR
+Pilha:64
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+BOOLEAN
+Pilha:157
+SEMI_COLON
+Pilha:258
+Regra: 11
+Pilha:255
+VAR
+Pilha:369
+Regra: 24
+Pilha:77
+Regra: 21
+Pilha:76
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+INTEGER
+Pilha:157
+SEMI_COLON
+Pilha:256
+Regra: 9
+Pilha:255
+VAR
+Pilha:369
+Regra: 24
+Pilha:81
+Regra: 20
+Pilha:76
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+INTEGER
+Pilha:157
+SEMI_COLON
+Pilha:256
+Regra: 9
+Pilha:255
+VAR
+Pilha:369
+Regra: 24
+Pilha:81
+Regra: 20
+Pilha:76
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+INTEGER
+Pilha:157
+SEMI_COLON
+Pilha:256
+Regra: 9
+Pilha:255
+ID
+Pilha:369
+Regra: 24
+Pilha:81
+Regra: 20
+Pilha:76
+EQUALS
+Pilha:103
+Regra: 72
+Pilha:95
+Regra: 70
+Pilha:88
+TRUE
+Pilha:121
+AND
+Pilha:181
+Regra: 61
+Pilha:173
+Regra: 51
+Pilha:172
+Regra: 48
+Pilha:171
+Regra: 45
+Pilha:170
+Regra: 38
+Pilha:169
+FALSE
+Pilha:271
+SEMI_COLON
+Pilha:182
+Regra: 62
+Pilha:173
+Regra: 51
+Pilha:172
+Regra: 48
+Pilha:171
+Regra: 45
+Pilha:387
+Regra: 36
+Pilha:169
+WHILE
+Pilha:270
+Regra: 33
+Pilha:82
+Regra: 23
+Pilha:80
+LEFT_PARENTHESIS
+Pilha:84
+ID
+Pilha:109
+NOT_EQUAL
+Pilha:150
+Regra: 72
+Pilha:142
+Regra: 70
+Pilha:138
+Regra: 52
+Pilha:137
+Regra: 51
+Pilha:136
+Regra: 48
+Pilha:135
+Regra: 45
+Pilha:134
+ID
+Pilha:217
+RIGHT_PARENTHESIS
+Pilha:150
+Regra: 72
+Pilha:142
+Regra: 70
+Pilha:138
+Regra: 52
+Pilha:137
+Regra: 51
+Pilha:136
+Regra: 48
+Pilha:330
+Regra: 44
+Pilha:134
+Regra: 38
+Pilha:159
+ID
+Pilha:263
+EQUALS
+Pilha:103
+Regra: 72
+Pilha:95
+Regra: 70
+Pilha:88
+ID
+Pilha:121
+PLUS
+Pilha:186
+Regra: 72
+Pilha:178
+Regra: 70
+Pilha:174
+Regra: 52
+Pilha:173
+Regra: 51
+Pilha:172
+Regra: 48
+Pilha:171
+NUMERAL
+Pilha:279
+SEMI_COLON
+Pilha:185
+Regra: 65
+Pilha:173
+Regra: 51
+Pilha:395
+Regra: 46
+Pilha:171
+Regra: 45
+Pilha:170
+Regra: 38
+Pilha:169
+RIGHT_BRACES
+Pilha:270
+Regra: 33
+Pilha:380
+Regra: 29
+Pilha:107
+Regra: 22
+Pilha:80
+FUNCTION
+Pilha:106
+Regra: 19
+Pilha:63
+Regra: 16
+Pilha:4
+Regra: 4
+Pilha:9
+Regra: 2
+Pilha:2
+ID
+Pilha:6
+LEFT_PARENTHESIS
+Pilha:11
+Regra: 71
+Pilha:10
+Regra: 73
+Pilha:14
+ID
+Pilha:16
+COLON
+Pilha:28
+Regra: 71
+Pilha:27
+STRING
+Pilha:33
+RIGHT_PARENTHESIS
+Pilha:42
+Regra: 12
+Pilha:38
+Regra: 18
+Pilha:26
+COLON
+Pilha:31
+INTEGER
+Pilha:36
+LEFT_BRACES
+Pilha:51
+Regra: 9
+Pilha:50
+VAR
+Pilha:64
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+BOOLEAN
+Pilha:157
+SEMI_COLON
+Pilha:258
+Regra: 11
+Pilha:255
+VAR
+Pilha:369
+Regra: 24
+Pilha:77
+Regra: 21
+Pilha:76
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+INTEGER
+Pilha:157
+SEMI_COLON
+Pilha:256
+Regra: 9
+Pilha:255
+VAR
+Pilha:369
+Regra: 24
+Pilha:81
+Regra: 20
+Pilha:76
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+INTEGER
+Pilha:157
+SEMI_COLON
+Pilha:256
+Regra: 9
+Pilha:255
+VAR
+Pilha:369
+Regra: 24
+Pilha:81
+Regra: 20
+Pilha:76
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+INTEGER
+Pilha:157
+SEMI_COLON
+Pilha:256
+Regra: 9
+Pilha:255
+ID
+Pilha:369
+Regra: 24
+Pilha:81
+Regra: 20
+Pilha:76
+EQUALS
+Pilha:103
+Regra: 72
+Pilha:95
+Regra: 70
+Pilha:88
+TRUE
+Pilha:121
+AND
+Pilha:181
+Regra: 61
+Pilha:173
+Regra: 51
+Pilha:172
+Regra: 48
+Pilha:171
+Regra: 45
+Pilha:170
+Regra: 38
+Pilha:169
+FALSE
+Pilha:271
+SEMI_COLON
+Pilha:182
+Regra: 62
+Pilha:173
+Regra: 51
+Pilha:172
+Regra: 48
+Pilha:171
+Regra: 45
+Pilha:387
+Regra: 36
+Pilha:169
+IF
+Pilha:270
+Regra: 33
+Pilha:82
+Regra: 23
+Pilha:80
+LEFT_PARENTHESIS
+Pilha:83
+ID
+Pilha:108
+GREATER_THAN
+Pilha:150
+Regra: 72
+Pilha:142
+Regra: 70
+Pilha:138
+Regra: 52
+Pilha:137
+Regra: 51
+Pilha:136
+Regra: 48
+Pilha:135
+Regra: 45
+Pilha:134
+ID
+Pilha:213
+OR
+Pilha:150
+Regra: 72
+Pilha:142
+Regra: 70
+Pilha:138
+Regra: 52
+Pilha:137
+Regra: 51
+Pilha:136
+Regra: 48
+Pilha:326
+Regra: 40
+Pilha:134
+Regra: 38
+Pilha:158
+NUMERAL
+Pilha:211
+EQUAL_EQUAL
+Pilha:149
+Regra: 65
+Pilha:137
+Regra: 51
+Pilha:136
+Regra: 48
+Pilha:135
+Regra: 45
+Pilha:324
+ID
+Pilha:216
+RIGHT_PARENTHESIS
+Pilha:150
+Regra: 72
+Pilha:142
+Regra: 70
+Pilha:138
+Regra: 52
+Pilha:137
+Regra: 51
+Pilha:136
+Regra: 48
+Pilha:329
+Regra: 43
+Pilha:324
+Regra: 37
+Pilha:158
+LEFT_BRACES
+Pilha:262
+VAR
+Pilha:379
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+INTEGER
+Pilha:157
+SEMI_COLON
+Pilha:256
+Regra: 9
+Pilha:255
+ID
+Pilha:369
+Regra: 24
+Pilha:77
+Regra: 21
+Pilha:456
+EQUALS
+Pilha:103
+Regra: 72
+Pilha:95
+Regra: 70
+Pilha:88
+ID
+Pilha:121
+PLUS
+Pilha:186
+Regra: 72
+Pilha:178
+Regra: 70
+Pilha:174
+Regra: 52
+Pilha:173
+Regra: 51
+Pilha:172
+Regra: 48
+Pilha:171
+NUMERAL
+Pilha:279
+SEMI_COLON
+Pilha:185
+Regra: 65
+Pilha:173
+Regra: 51
+Pilha:395
+Regra: 46
+Pilha:171
+Regra: 45
+Pilha:170
+Regra: 38
+Pilha:169
+RIGHT_BRACES
+Pilha:270
+Regra: 33
+Pilha:82
+Regra: 23
+Pilha:488
+ELSE
+Pilha:507
+Regra: 19
+Pilha:374
+Regra: 31
+Pilha:370
+LEFT_BRACES
+Pilha:448
+VAR
+Pilha:91
+ID
+Pilha:78
+COLON
+Pilha:49
+Regra: 71
+Pilha:48
+Regra: 26
+Pilha:104
+INTEGER
+Pilha:157
+SEMI_COLON
+Pilha:256
+Regra: 9
+Pilha:255
+ID
+Pilha:369
+Regra: 24
+Pilha:77
+Regra: 21
+Pilha:128
+EQUALS
+Pilha:103
+Regra: 72
+Pilha:95
+Regra: 70
+Pilha:88
+ID
+Pilha:121
+PLUS
+Pilha:186
+Regra: 72
+Pilha:178
+Regra: 70
+Pilha:174
+Regra: 52
+Pilha:173
+Regra: 51
+Pilha:172
+Regra: 48
+Pilha:171
+NUMERAL
+Pilha:279
+SEMI_COLON
+Pilha:185
+Regra: 65
+Pilha:173
+Regra: 51
+Pilha:395
+Regra: 46
+Pilha:171
+Regra: 45
+Pilha:170
+Regra: 38
+Pilha:169
+RIGHT_BRACES
+Pilha:270
+Regra: 33
+Pilha:82
+Regra: 23
+Pilha:206
+IF
+Pilha:320
+Regra: 19
+Pilha:86
+Regra: 31
+Pilha:483
+Regra: 28
+Pilha:107
+Regra: 22
+Pilha:80
+LEFT_PARENTHESIS
+Pilha:83
+ID
+Pilha:108
+EQUAL_EQUAL
+Pilha:150
+Regra: 72
+Pilha:142
+Regra: 70
+Pilha:138
+Regra: 52
+Pilha:137
+Regra: 51
+Pilha:136
+Regra: 48
+Pilha:135
+Regra: 45
+Pilha:134
+ID
+Pilha:216
+LEFT_PARENTHESIS
+Pilha:150
+Regra: 72
+Pilha:142
+NUMERAL
+Pilha:231
+RIGHT_PARENTHESIS
+Pilha:251
+Regra: 65
+Pilha:239
+Regra: 51
+Pilha:238
+Regra: 48
+Pilha:237
+Regra: 45
+Pilha:236
+Regra: 38
+Pilha:235
+Regra: 67
+Pilha:340
+RIGHT_PARENTHESIS
+Pilha:427
+Regra: 58
+Pilha:137
+Regra: 51
+Pilha:136
+Regra: 48
+Pilha:329
+Regra: 43
+Pilha:134
+Regra: 38
+Pilha:158
+BREAK
+Pilha:262
+SEMI_COLON
+Pilha:377
+ELSE
+Pilha:454
+Regra: 34
+Pilha:370
+BREAK
+Pilha:448
+SEMI_COLON
+Pilha:89
+RIGHT_BRACES
+Pilha:126
+Regra: 34
+Pilha:483
+Regra: 28
+Pilha:107
+Regra: 22
+Pilha:80
+EOF_t
+Pilha:106
+Regra: 19
+Pilha:63
+Regra: 16
+Pilha:4
+Regra: 4
+Pilha:9
+Regra: 2
+Pilha:2
+Regra: 1
+Pilha:1
+EOF_t
+Pilha:8
+EOF_t
+Pilha:535
+Sintaxe/Escopo ok
+Program ended with exit code: 0
