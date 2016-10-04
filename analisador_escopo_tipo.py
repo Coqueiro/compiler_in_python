@@ -15,6 +15,7 @@ DC_LI_RULE = 15
 DF_RULE = 16
 LP_LP_RULE = 17
 LP_IDD_RULE = 18
+B_RULE = 19
 DV_VAR_RULE = 24
 LI_COMMA_RULE = 25
 LI_IDD_RULE = 26
@@ -72,13 +73,25 @@ NUM_RULE = 77
 NB_RULE = 78
 IDT_RULE = 9001
 
-StackSem = []
-
 kindEnum = ['NO_KIND_DEF', 'VAR', 'PARAM', 'FUNCTION', 'FIELD', 'ARRAY_TYPE', 'STRUCT_TYPE', 'ALIAS_TYPE', 'SCALAR_TYPE', 'UNIVERSAL']
 t_kind = {}
 
 for i in range(len(kindEnum)):
     t_kind[kindEnum[i]] = i-1
+
+class StackSem(object):
+	stack_ = []
+	def __getitem__(self, arg):
+		return self.stack_[arg]
+	def append(self, element):
+		self.stack_.append(element)
+	def pop(self):
+		if len(self.stack_) != 0:
+			return self.stack_.pop()
+		else:
+			return None
+
+StackSem = StackSem()
 
 def IsKindType(type):
     return type == t_kind['ARRAY_TYPE'] or type == t_kind['STRUCT_TYPE'] or type == t_kind['ALIAS_TYPE'] or type == t_kind['SCALAR_TYPE']
@@ -166,8 +179,8 @@ def NewLabel():
     labelNo = labelNo + 1
     return labelNo
 
-SymbolTable = [pobject()]*MAX_NEST_LEVEL
-SymbolTableLast = [pobject()]*MAX_NEST_LEVEL
+SymbolTable = [None]*MAX_NEST_LEVEL
+SymbolTableLast = [None]*MAX_NEST_LEVEL
 nCurrentLevel = -1
 
 def NewBlock():
@@ -187,7 +200,7 @@ def Define(aName):
     obj = pobject()
     obj.nName = aName
     obj.pNext = None
-    if(SymbolTable[nCurrentLevel] == {}):
+    if(SymbolTable[nCurrentLevel] == None):
         SymbolTable[nCurrentLevel] = obj
         SymbolTableLast[nCurrentLevel] = obj
     else:
@@ -198,7 +211,7 @@ def Define(aName):
 def Search(aName):
     global nCurrentLevel
     obj = SymbolTable[nCurrentLevel]
-    while obj != {}:
+    while obj != None:
         if obj.nName == aName:
             break
         else:
@@ -214,12 +227,12 @@ def Find(aName):
     while i >= 0:
         i = i - 1
         obj = SymbolTable[i]
-        while obj != {}:
+        while obj != None:
             if obj.nName == aName:
                 break
             else:
                 obj = obj.pNext
-        if obj != {}:
+        if obj != None:
             break
     if obj == {}:
         obj = None
@@ -525,6 +538,14 @@ def analyze(rule, name, line):
         LP.nSize = T.nSize
         LP.nont = LP
         StackSem.append(LP)
+    elif rule == B_RULE:
+        MF = StackSem[-3]
+        IDD = StackSem[-7]
+        p = IDD.ID.obj
+        p.Function.pRetType = T.T.type
+        p.Function.pParams = LP.LP.list
+        p.Function.nParams = LP.nSize
+        p.Function.nVars = LP.nSize
     elif rule == LP_LP_RULE:
         T = StackSem.pop()
         IDD = StackSem.pop()

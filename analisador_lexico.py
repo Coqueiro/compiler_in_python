@@ -143,12 +143,15 @@ def getStringConst(n):
     return vConsts[n].sVal
 
 def readChar():
-    global pointer, program, line
-    symbol = program[pointer]
-    pointer = pointer + 1
-    if symbol == '\n': 
-        line = line + 1
-    return symbol
+    try:
+        global pointer, program, line
+        symbol = program[pointer]
+        pointer = pointer + 1
+        if symbol == '\n': 
+            line = line + 1
+        return symbol
+    except IndexError:
+        return '\x03'
 
 def getSecondaryToken():
     return secondaryToken
