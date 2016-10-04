@@ -1,11 +1,75 @@
 import analisador_lexico as lexic_func
 
 MAX_NEST_LEVEL = 50
-DT_RULE = 7
+DF_RULE = 4
+DT_ARRAY_RULE = 6
+DT_STRUCT_RULE = 7
+DT_RULE = 8
+T_INTEGER_RULE = 9
+T_CHAR_RULE = 10
+T_BOOL_RULE = 11
+T_STRING_RULE = 12
+T_IDU_RULE = 13
+DC_DC_RULE = 14
+DC_LI_RULE = 15
 DF_RULE = 16
-IDD_RULE = 71
-IDU_RULE = 72
-NB_RULE = 73
+LP_LP_RULE = 17
+LP_IDD_RULE = 18
+DV_VAR_RULE = 24
+LI_COMMA_RULE = 25
+LI_IDD_RULE = 26
+S_IF_RULE = 27
+S_IF_ELSE_RULE = 28
+S_WHILE_RULE = 29
+S_DO_WHILE_RULE = 30
+S_BLOCK_RULE = 31
+S_E_SEMICOLON = 32
+S_BREAK_RULE = 33
+S_CONTINUE_RULE = 34
+E_AND_RULE = 35
+E_OR_RULE = 36
+E_L_RULE = 37
+L_LESS_THAN_RULE = 38
+L_GREATER_THAN_RULE = 39
+L_LESS_EQUAL_RULE = 40
+L_GREATER_EQUAL_RULE = 41
+L_EQUAL_EQUAL_RULE = 42
+L_NOT_EQUAL_RULE = 43
+L_R_RULE = 44
+R_PLUS_RULE = 45
+R_MINUS_RULE = 46
+R_TM_RULE = 47
+TM_TIMES_RULE = 48
+TM_DIVIDE_RULE = 49
+TM_F_RULE = 50
+F_LV_RULE = 51
+F_LEFT_PLUS_PLUS_RULE = 52
+F_LEFT_MINUS_MINUS_RULE = 53
+F_RIGHT_PLUS_PLUS_RULE = 54
+F_RIGHT_MINUS_MINUS_RULE = 55
+F_PARENTHESIS_E_RULE = 56
+F_IDU_MC_RULE = 57
+F_MINUS_F_RULE = 58
+F_NOT_F_RULE = 59
+F_TRUE_RULE = 60
+F_FALSE_RULE = 61
+F_CHR_RULE = 62
+F_STR_RULE = 63
+F_NUM_RULE = 64
+LE_LE_RULE = 65
+LE_E_RULE = 66
+LV_DOT_RULE = 67
+LV_SQUARE_RULE = 68
+LV_IDU_RULE = 69
+IDD_RULE = 70
+IDU_RULE = 71
+ID_RULE = 72
+TRUE_RULE = 73
+FALSE_RULE = 74
+CHR_RULE = 75
+STR_RULE = 76
+NUM_RULE = 77
+NB_RULE = 78
 IDT_RULE = 9001
 
 StackSem = []
@@ -15,6 +79,9 @@ t_kind = {}
 
 for i in range(len(kindEnum)):
     t_kind[kindEnum[i]] = i-1
+
+def IsKindType(type):
+    return type == t_kind['ARRAY_TYPE'] or type == t_kind['STRUCT_TYPE'] or type == t_kind['ALIAS_TYPE'] or type == t_kind['SCALAR_TYPE']
 
 class Map(dict):
     """
@@ -93,8 +160,8 @@ numberFunctions = 0
 currentFunction = pobject()
 
 pInt = pobject(-1, None, t_kind['SCALAR_TYPE'])
+pChar = pobject(-1, None, t_kind['SCALAR_TYPE'])
 pBool = pobject(-1, None, t_kind['SCALAR_TYPE'])
-pString = pobject(-1, None, t_kind['SCALAR_TYPE'])
 pString = pobject(-1, None, t_kind['SCALAR_TYPE'])
 pUniversal = pobject(-1, None, t_kind['SCALAR_TYPE'])
 
@@ -124,7 +191,7 @@ def Define(aName):
     obj = pobject()
     obj.nName = aName
     obj.pNext = None
-    if(SymbolTable[nCurrentLevel] == None):
+    if(SymbolTable[nCurrentLevel] == {}):
         SymbolTable[nCurrentLevel] = obj
         SymbolTableLast[nCurrentLevel] = obj
     else:
@@ -135,11 +202,13 @@ def Define(aName):
 def Search(aName):
     global nCurrentLevel
     obj = SymbolTable[nCurrentLevel]
-    while obj != None:
+    while obj != {}:
         if obj.nName == aName:
             break
         else:
             obj = obj.pNext
+    if obj == {}:
+        obj = None
     return obj
 
 def Find(aName):
@@ -149,13 +218,15 @@ def Find(aName):
     while i >= 0:
         i = i - 1
         obj = SymbolTable[i]
-        while obj != None:
+        while obj != {}:
             if obj.nName == aName:
                 break
             else:
                 obj = obj.pNext
-        if obj != None:
+        if obj != {}:
             break
+    if obj == {}:
+        obj = None
     return obj
 
 def Error(error, line):
@@ -191,12 +262,6 @@ def CheckType(t1, t2):
     return False
 
 class t_attrib(dict):
-    def __getattr__(self, attr):
-        return self.get(attr)
-    __setattr__= dict.__setitem__
-    __delattr__= dict.__delitem__
-    
-    
     enumMapIndex = 0
     nSize = 0
     ID = Map()
@@ -286,7 +351,7 @@ def analyze(rule, name, line):
         IDU.ID.name = identity
         p = Find(name)
         if(p == None):
-            Error("Variable not declared!", line)
+            Error("Declaring variable!", line)
             p = Define(name)
         IDU.ID.obj = p
         StackSem.append(IDU)
@@ -304,7 +369,7 @@ def analyze(rule, name, line):
         do_nothing = True
     elif rule == DF_RULE:
         EndBlock()
-    elif rule == T_INTEGER_RULE:
+    elif rule == T_INTEGER_RULE: 
         T.T.type = pInt
         T.enumMapIndex = T
         T.nSize = 1
@@ -318,12 +383,29 @@ def analyze(rule, name, line):
         T.T.type = pBool
         T.nont = T
         T.nSize = 1
-        StackSem.push(T)
+        StackSem.append(T)
     elif rule == T_STRING_RULE:
         T.T.type = pString
         T.nont = T
         T.nSize = 1
-        StackSem.push(T)
+        StackSem.append(T)
+    elif rule == T_IDU_RULE:
+        IDU = StackSem.pop()
+        p = IDU.ID.obj
+        if IsKindType(p.eKind) or p.eKind == t_kind['UNIVERSAL']:
+            T.T.type = p
+            if p.eKind == t_kind['ALIAS_TYPE']:
+                T.nSize = p.Alias.nSize
+            elif p.eKind == t_kind['ARRAY_TYPE']:
+                T.nSize = p.Array.nSize
+            elif p.eKind == t_kind['STRUCT_TYPE']:
+                T.nSize = p.Struct.nSize
+        else:
+            T.T.type = pUniversal
+            T.nSize = 0
+            Error('different type expected', line)
+        T.nont = T
+        StackSem.append(T)
     elif rule == LI_IDD_RULE:
         IDD = StackSem[-1]
         LI.LI.list = IDD.ID.obj
@@ -337,9 +419,8 @@ def analyze(rule, name, line):
         LI0.nont = LI
         StackSem.append(LI0)
     elif rule == DV_VAR_RULE:
-        T = StackSem[-1]
+        T = StackSem.pop()
         t = T.T.type
-        StackSem.pop()
         LI = StackSem.pop()
         p = LI.LI.list
         n = currentFunction.Function.nVars
@@ -390,14 +471,6 @@ def analyze(rule, name, line):
         p.Array.nNumElems = n
         p.Array.pElemType = t
         p.Array.nSize = n*T.nSize
-    elif rule == DT_ALIAS_RULE:
-        T = StackSem.pop()
-        IDD = StackSem.pop()
-        p = IDD.ID.obj
-        t = T.T.type
-        p.eKind = t_kind['ARRAY_TYPE']
-        p.Alias.pBaseType = t
-        p.Alias.nSize = T.nSize
     elif rule == DC_LI_RULE:
         T = StackSem.pop()
         LI = StackSem.pop()
@@ -405,7 +478,7 @@ def analyze(rule, name, line):
         t = T.T.type
         n = 0
         while p != None and p.eKind == t_kind['NO_KIND_DEF']:
-            p.eKind = t_eKind['FIELD']
+            p.eKind = t_kind['FIELD']
             p.Field.pType = t
             p.Field.nSize = T.nSize
             p.Field.nIndex = n
@@ -415,6 +488,8 @@ def analyze(rule, name, line):
         DC.nSize = n
         DC.nont = DC
         StackSem.append(DC)
+    elif rule == DF_RULE:
+        EndBlock()
     elif rule == DC_DC_RULE:
         T = StackSem.pop()
         LI = StackSem.pop()
@@ -422,7 +497,7 @@ def analyze(rule, name, line):
         p = LI.LI.list
         t = T.T.type
         n = DC1.nSize
-        while p != None and p.eKind == t_kind['NO_KIND-DEF']:
+        while p != None and p.eKind == t_kind['NO_KIND_DEF']:
             p.eKind = t_kind['FIELD']
             p.Field.pType = t
             p.Field.nIndex = n
@@ -441,12 +516,7 @@ def analyze(rule, name, line):
         p.Struct.pFields = DC.DC.list
         p.Struct.nSize = DC.nSize
         EndBlock()
-    elif rule == LP_EPSILON_RULE:
-        LP.LP.list = None
-        LP.nont = LP
-        LP.nSize = 0
-        StackSem.append(LP)
-    elif rule == LP.IDD.RULE:
+    elif rule == LP_IDD_RULE:
         T = StackSem.pop()
         IDD = StackSem.pop()
         p = IDD.ID.obj
@@ -474,50 +544,18 @@ def analyze(rule, name, line):
         LP0.nSize = n + T.nSize
         LP0.nont = LP 
         StackSem.append(LP0)
-    elif rule == NF_RULE:
-        IDD = StackSem.pop()
-        f = IDD.ID.obj
-        f.eKind = t_kind['FUNCTION']
-        f.Function.nParams = 0
-        f.Function.nVars = 0
-        numberFunctions = numberFunctions + 1
-        f.Function.nIndex = numberFunctions
-        NewBlock()
-    elif rule == MF_RULE:
-        T = StackSem.pop()
-        LP = StackSem.pop()
-        IDD = StackSem.pop()
-        f = IDD.ID.obj
-        f.eKind = t_kind['FUNCTION']
-        f.Function.pRetType = T.T.type
-        f.Funciton.pParams = LP.LP.list
-        f.Function.nParams = LP.nSize
-        f.Function.nVars = LP.nSize
-        currentFunction = f
     elif rule == DF_RULE:
         EndBlock()
     elif rule == S_BLOCK_RULE:
         EndBlock()
     elif rule == S_E_SEMICOLON:
         E = StackSem.pop()
-    elif rule == MT_RULE:
-        l = NewLabel()
-        MT.MT.label = l
-        MT.nont = MT
-        StackSem.append(MT)
     elif rule == S_IF_RULE:
         MT = StackSem.pop()
         E = StackSem.pop()
         t = E.E.type
         if not CheckType(t, pBool):
             Error('bool type expected', line)
-    elif rule == ME_RULE:
-        MT = StackSem[-1]
-        l1 = MT.MT.label
-        l2 = NewLabel()
-        ME.ME.label = l2
-        ME.nont = ME
-        StackSem.append(ME)
     elif rule == S_IF_ELSE_RULE:
         ME = StackSem.pop()
         MT = StackSem.pop()
@@ -526,10 +564,6 @@ def analyze(rule, name, line):
         t = E.E.type
         if not CheckType(t,pBool):
             Error('bool type expected', line)
-    elif rule == MW_RULE:
-        l = NewLabel()
-        MW.MW.label = l
-        StackSem.append(MW)
     elif rule == S_WHILE_RULE:
         MT = StackSem.pop()
         E = StackSem.pop()
@@ -550,10 +584,6 @@ def analyze(rule, name, line):
         do_nothing = True
     elif rule == S_CONTINUE_RULE:
         do_nothing = True
-    elif rule == S_RETURN_RULE:
-        E = StackSem.pop()
-        if not CheckType(currentFunction.Function.pRetType, E.E.type):
-            Error('type mismatch error', line)
     elif rule == E_AND_RULE:
         L = StackSem.pop()
         E1 = StackSem.pop()
@@ -595,7 +625,7 @@ def analyze(rule, name, line):
         L0.L.type = pBool
         L0.nont = L
         StackSem.append(L0)
-    elif rule == L_LESH_EQUAL_RULE:
+    elif rule == L_LESS_EQUAL_RULE:
         R = StackSem.pop()
         L1 = StackSem.pop()
         if not CheckType(L1.L.type, R.R.type):
@@ -652,12 +682,12 @@ def analyze(rule, name, line):
         R0.R.type = R1.R.type
         R0.nont = R
         StackSem.append(R0)
-    elif rule == R_K_RULE:
+    elif rule == R_TM_RULE:
         K = StackSem.pop()
         R.R.type = K.K.type
         R.nont = R
         StackSem.append(R)
-    elif rule == K_TIMES_RULE:
+    elif rule == TM_TIMES_RULE:
         F = StackSem.pop()
         K1 = StackSem.pop()
         if not CheckType(K1.K.type, F.F.type):
@@ -667,7 +697,7 @@ def analyze(rule, name, line):
         K0.K.type = K1.K.type
         K0.nont = K
         StackSem.append(K0)
-    elif rule == K_DIVIDE_RULE:
+    elif rule == TM_DIVIDE_RULE:
         F = StackSem.pop()
         K1 = StackSem.pop()
         if not CheckType(K1.K.type, F.F.type):
@@ -677,7 +707,7 @@ def analyze(rule, name, line):
         K0.K.type = K1.K.type
         K0.nont = K
         StackSem.append(K0)
-    elif rule == K_F_RULE:
+    elif rule == TM_F_RULE:
         F = StackSem.pop()
         K.K.type = F.F.type
         K.nont = K
@@ -817,30 +847,6 @@ def analyze(rule, name, line):
             LV.LV.type.Type.nSize = p.Var.nSize
         LV.nont = LV
         StackSem.append(LV)
-    elif rule == MA_RULE:
-        do_nothing = True
-    elif rule == E_LV_EQUAL_RULE:
-        E1 = StackSem.pop()
-        LV = StackSem.pop()
-        if not CheckType(LV.LV.type, E1.E.type):
-            Error('type mismatched', line)
-        t = LV.LV.type
-        E0.F.type = E1.E.type
-        StackSem.append(E0)
-    elif rule == MC_RULE:
-        IDU = StackSem.pop()
-        f = IDU.ID.obj
-        if f.eKind != t_kind['FUNCTION']:
-            Error('this kind is not a function', line)
-            MC.MC.type = pUniversal
-            MC.MC.param = None
-            MC.MC.err = True
-        else:
-            Mc.MC.type = f.Function.pRetType
-            MC.MC.param = f.Function.pParams
-            MC.MC.err = False
-        MC.nont = MC
-        StackSem.append(MC)
     elif rule == LE_E_RULE:
         E = StackSem.pop()
         MC = StackSem.pop()
@@ -877,17 +883,6 @@ def analyze(rule, name, line):
                 LE0.LE.n = n+1
         LE0.nont = LE 
         StackSem.append(LE0)
-    elif rule == LE_EPSILON_RULE:
-        MC = StackSem[-1]
-        if MC.MC.param != None:
-            LE.LE.err = True
-        else:
-            LE.LE.err = False
-        LE.LE.n = 0
-        LE.LE.param = MC.MC.param
-        LE.LE.type = pUniversal
-        LE.nont = LE 
-        StackSem.append(LE)
     elif rule == F_IDU_MC_RULE:
         LE = StackSem.pop()
         MC = StackSem.pop()
