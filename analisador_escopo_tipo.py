@@ -79,20 +79,6 @@ t_kind = {}
 for i in range(len(kindEnum)):
     t_kind[kindEnum[i]] = i-1
 
-class StackSem(object):
-	stack_ = []
-	def __getitem__(self, arg):
-		return self.stack_[arg]
-	def append(self, element):
-		self.stack_.append(element)
-	def pop(self):
-		if len(self.stack_) != 0:
-			return self.stack_.pop()
-		else:
-			return None
-
-StackSem = StackSem()
-
 def IsKindType(type):
     return type == t_kind['ARRAY_TYPE'] or type == t_kind['STRUCT_TYPE'] or type == t_kind['ALIAS_TYPE'] or type == t_kind['SCALAR_TYPE']
 
@@ -331,6 +317,23 @@ class t_attrib(dict):
     NUM['type'] = pobject()
     NUM['val'] = 0
     NUM['pos'] = 0
+
+class StackSem(object):
+    stack_ = []
+    def __getitem__(self, arg):
+        if(len(self.stack_) >= abs(arg)):
+            return self.stack_[arg]
+        else:
+            return t_attrib()
+    def append(self, element):
+        self.stack_.append(element)
+    def pop(self):
+        if(len(self.stack_) != 0):
+            return self.stack_.pop()
+        else:
+            return t_attrib()
+
+StackSem = StackSem()
 
 identity = n = l = l1 = l2 = 0
 p = t = f = pobject()
