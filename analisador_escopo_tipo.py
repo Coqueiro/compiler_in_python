@@ -82,7 +82,7 @@ for i in range(len(kindEnum)):
 def IsKindType(type):
     return type == t_kind['ARRAY_TYPE'] or type == t_kind['STRUCT_TYPE'] or type == t_kind['ALIAS_TYPE'] or type == t_kind['SCALAR_TYPE']
 
-class Stack(object):
+class Stack(object): #1#
     stack_ = []
     def __getitem__(self, arg):
         if(len(self.stack_) >= abs(arg)):
