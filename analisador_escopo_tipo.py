@@ -84,10 +84,6 @@ def IsKindType(type):
     return type == t_kind['ARRAY_TYPE'] or type == t_kind['STRUCT_TYPE'] or type == t_kind['ALIAS_TYPE'] or type == t_kind['SCALAR_TYPE']
 
 class Map(dict):
-    """
-    Example:
-    m = Map({'first_name': 'Eduardo'}, last_name='Pool', age=24, sports=['Soccer'])
-    """
     def __init__(self, *args, **kwargs):
         super(Map, self).__init__(*args, **kwargs)
         for arg in args:
